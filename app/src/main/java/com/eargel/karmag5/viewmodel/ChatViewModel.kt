@@ -1,4 +1,4 @@
-package com.eargel.karmag5
+package com.eargel.karmag5.viewmodel
 
 import androidx.lifecycle.ViewModel
 

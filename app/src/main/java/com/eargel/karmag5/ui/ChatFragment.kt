@@ -1,4 +1,4 @@
-package com.eargel.karmag5
+package com.eargel.karmag5.ui
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.eargel.karmag5.viewmodel.ChatViewModel
+import com.eargel.karmag5.R
 
 class ChatFragment : Fragment() {
 
