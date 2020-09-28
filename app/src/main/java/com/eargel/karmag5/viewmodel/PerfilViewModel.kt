@@ -1,7 +1,7 @@
-package com.eargel.karmag5
+package com.eargel.karmag5.viewmodel
 
 import androidx.lifecycle.ViewModel
 
-class LoginViewModel : ViewModel() {
+class PerfilViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
