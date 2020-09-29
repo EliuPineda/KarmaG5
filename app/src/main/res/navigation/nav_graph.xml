@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.eargel.karmag5.ui.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.eargel.karmag5.ui.PerfilFragment"
+        android:label="perfil_fragment"
+        tools:layout="@layout/perfil_fragment" >
+        <action
+            android:id="@+id/action_perfilFragment_to_solicitarFragment"
+            app:destination="@id/solicitarFragment" />
+        <action
+            android:id="@+id/action_perfilFragment_to_hacerFragment"
+            app:destination="@id/hacerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solicitarFragment"
+        android:name="com.eargel.karmag5.ui.SolicitarFragment"
+        android:label="solicitar_fragment"
+        tools:layout="@layout/solicitar_fragment" >
+        <action
+            android:id="@+id/action_solicitarFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.eargel.karmag5.ui.SignupFragment"
+        android:label="signup_fragment"
+        tools:layout="@layout/signup_fragment" >
+        <action
+            android:id="@+id/action_signupFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hacerFragment"
+        android:name="com.eargel.karmag5.ui.HacerFragment"
+        android:label="hacer_fragment"
+        tools:layout="@layout/hacer_fragment" >
+        <action
+            android:id="@+id/action_hacerFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.eargel.karmag5.ui.ChatFragment"
+        android:label="chat_fragment"
+        tools:layout="@layout/chat_fragment" />
+</navigation>
