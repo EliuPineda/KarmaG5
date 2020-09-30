@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.eargel.karmag5.viewmodel.LoginViewModel
 import com.eargel.karmag5.R
-import com.eargel.karmag5.R.id.action_loginFragment_to_perfilFragment
-import com.eargel.karmag5.R.id.action_loginFragment_to_signupFragment
+import com.eargel.karmag5.R.id.*
 import kotlinx.android.synthetic.main.login_fragment.*
 
 class LoginFragment : Fragment() {

@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.eargel.karmag5.viewmodel.PerfilViewModel
 import com.eargel.karmag5.R
+import kotlinx.android.synthetic.main.login_fragment.*
+import kotlinx.android.synthetic.main.perfil_fragment.*
 
 class PerfilFragment : Fragment() {
 
@@ -28,6 +31,14 @@ class PerfilFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PerfilViewModel::class.java)
         // TODO: Use the ViewModel
+
+        buttonGoHacer.setOnClickListener{
+            findNavController().navigate(R.id.action_perfilFragment_to_hacerFragment)
+        }
+
+        buttonGoSolicitar.setOnClickListener{
+            findNavController().navigate(R.id.action_perfilFragment_to_solicitarFragment)
+        }
     }
 
 }

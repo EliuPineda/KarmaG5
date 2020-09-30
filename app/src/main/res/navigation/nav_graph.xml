@@ -33,11 +33,7 @@
         android:id="@+id/solicitarFragment"
         android:name="com.eargel.karmag5.ui.SolicitarFragment"
         android:label="solicitar_fragment"
-        tools:layout="@layout/solicitar_fragment" >
-        <action
-            android:id="@+id/action_solicitarFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
-    </fragment>
+        tools:layout="@layout/solicitar_fragment" />
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.eargel.karmag5.ui.SignupFragment"
@@ -51,11 +47,7 @@
         android:id="@+id/hacerFragment"
         android:name="com.eargel.karmag5.ui.HacerFragment"
         android:label="hacer_fragment"
-        tools:layout="@layout/hacer_fragment" >
-        <action
-            android:id="@+id/action_hacerFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
-    </fragment>
+        tools:layout="@layout/hacer_fragment" />
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.eargel.karmag5.ui.ChatFragment"

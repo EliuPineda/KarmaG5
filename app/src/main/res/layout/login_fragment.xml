@@ -55,18 +55,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="signin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <Button
         android:id="@+id/buttonSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="signup"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <CheckBox
         android:id="@+id/checkBoxRememberMe"
@@ -76,7 +76,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonSignIn"
         app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <TextView
         android:id="@+id/textViewEmail"
@@ -95,4 +95,18 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
 </androidx.constraintlayout.widget.ConstraintLayout>
