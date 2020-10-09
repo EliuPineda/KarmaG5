@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#036498"
     tools:context=".ui.SolicitarFragment">
 
     <EditText
@@ -40,7 +41,8 @@
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sacar Fotocopias" />
+            android:text="Sacar Fotocopias"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/textView2"
@@ -51,7 +53,8 @@
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comprar en KM5" />
+            android:text="Comprar en KM5"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/textView3"
@@ -62,7 +65,8 @@
             android:id="@+id/radioButton4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Buscar Domicilio Puerta 7" />
+            android:text="Buscar Domicilio Puerta 7"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/textView4"
@@ -73,7 +77,8 @@
             android:id="@+id/radioButton5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Favor Especial" />
+            android:text="Favor Especial"
+            android:textColor="#FFFFFF" />
 
     </RadioGroup>
 
@@ -96,6 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="¿Que favor deseas?"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup2"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -114,6 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Detalles Adicionales"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/editTextFavorExtraDetail"
         app:layout_constraintStart_toStartOf="@+id/editTextFavorExtraDetail" />
 

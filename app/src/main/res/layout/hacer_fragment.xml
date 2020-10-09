@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#036498"
     tools:context=".ui.HacerFragment">
 
     <RadioGroup
@@ -22,28 +23,32 @@
             android:id="@+id/radioButton3"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Copias" />
+            android:text="Copias"
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/radioButton6"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="KM5" />
+            android:text="KM5"
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/radioButton7"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Puerta 7" />
+            android:text="Puerta 7"
+            android:textColor="#FFFFFF" />
 
         <RadioButton
             android:id="@+id/radioButton8"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Especial" />
+            android:text="Especial"
+            android:textColor="#FFFFFF" />
     </RadioGroup>
 
     <TextView
@@ -55,7 +60,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="#FFFFFF" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
