@@ -11,6 +11,7 @@ import com.eargel.karmag5.viewmodel.PerfilViewModel
 import com.eargel.karmag5.R
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.android.synthetic.main.perfil_fragment.*
+import kotlinx.android.synthetic.main.signup_fragment.*
 
 class PerfilFragment : Fragment() {
 
@@ -32,6 +33,11 @@ class PerfilFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(PerfilViewModel::class.java)
         // TODO: Use the ViewModel
 
+
+        imageButtonLogOut.setOnClickListener{
+            findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
+        }
+
         buttonGoHacer.setOnClickListener{
             findNavController().navigate(R.id.action_perfilFragment_to_hacerFragment)
         }
@@ -39,6 +45,11 @@ class PerfilFragment : Fragment() {
         buttonGoSolicitar.setOnClickListener{
             findNavController().navigate(R.id.action_perfilFragment_to_solicitarFragment)
         }
+
+        imageButtonChat.setOnClickListener{
+            findNavController().navigate(R.id.action_perfilFragment_to_chatFragment)
+        }
+
     }
 
 }

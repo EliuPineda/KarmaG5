@@ -84,7 +84,7 @@
         app:layout_constraintGuide_percent="0.06" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageButtonBackPerfilFronHacer"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"

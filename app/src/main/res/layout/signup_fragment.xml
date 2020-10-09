@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonFinishUp"
         android:layout_width="123dp"
         android:layout_height="35dp"
         android:text="finish signup"
@@ -37,7 +37,7 @@
         app:layout_constraintGuide_percent="0.7" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBoxAgreePolicy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agree with privacy policy"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textViewReadPolicy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Read privacy policy"
@@ -137,7 +137,7 @@
         app:layout_constraintGuide_percent="0.55" />
 
     <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/imageButtonBackLogIng"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"

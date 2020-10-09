@@ -125,7 +125,7 @@
         app:layout_constraintStart_toStartOf="@+id/editTextFavorExtraDetail" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonDeseoSolicitar"
         android:layout_width="92dp"
         android:layout_height="35dp"
         android:text="Solicitar"
@@ -135,7 +135,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <ImageButton
-        android:id="@+id/imageButton7"
+        android:id="@+id/imageButtonBackPerfilFronSolicitar"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
