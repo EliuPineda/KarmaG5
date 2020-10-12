@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "347292527764",
+    "firebase_url": "https://karma-1ba5a.firebaseio.com",
+    "project_id": "karma-1ba5a",
+    "storage_bucket": "karma-1ba5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347292527764:android:771676f1afd2f51c585881",
+        "android_client_info": {
+          "package_name": "com.eargel.karmag5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347292527764-6vljnsr6oo655pd031ilh00mq1iibb56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAepb8ftDnu9MBqPgvOQ0dPt6RNiRrTCuk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347292527764-6vljnsr6oo655pd031ilh00mq1iibb56.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
