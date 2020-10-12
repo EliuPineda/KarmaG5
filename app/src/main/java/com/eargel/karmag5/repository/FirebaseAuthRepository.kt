@@ -12,20 +12,20 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.database.ValueEventListener as ValueEventListener
 
-class FirebaseAuthRepository {
+object FirebaseAuthRepository {
     val auth = FirebaseAuth.getInstance()
     val database = Firebase.database.reference
-    var userCreated = MutableLiveData<Boolean>()
 
-    fun signIn(googleSignInAccount: GoogleSignInAccount?): MutableLiveData<User>? {
-        val authenticatedUserMutableLiveData: MutableLiveData<User> = MutableLiveData<User>()
+    val authenticatedUserLiveData: MutableLiveData<User> = MutableLiveData<User>()
+
+    fun signIn(googleSignInAccount: GoogleSignInAccount?) {
         if (googleSignInAccount != null) {
             val googleTokenId = googleSignInAccount.idToken
             val googleAuthCredential = GoogleAuthProvider.getCredential(googleTokenId, null)
             auth.signInWithCredential(googleAuthCredential)
                 .addOnCompleteListener { authTask: Task<AuthResult> ->
                     if (authTask.isSuccessful) {
-                        val authUser = auth.getCurrentUser()
+                        val authUser = auth.currentUser
                         if (authUser != null) {
                             database.child("users").child(authUser.uid)
                                 .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -35,7 +35,7 @@ class FirebaseAuthRepository {
                                             user = dataSnapshot.getValue(User::class.java)
                                         if (user == null)
                                             user = createUser(authUser)
-                                        authenticatedUserMutableLiveData.value = user
+                                        authenticatedUserLiveData.value = user
                                     }
 
                                     override fun onCancelled(databaseError: DatabaseError) {
@@ -46,7 +46,6 @@ class FirebaseAuthRepository {
                     }
                 }
         }
-        return authenticatedUserMutableLiveData
     }
 
     fun createUser(firebaseUser: FirebaseUser): User {
@@ -59,4 +58,8 @@ class FirebaseAuthRepository {
         return user
     }
 
+    fun signOut() {
+        auth.signOut()
+        authenticatedUserLiveData.value = null
+    }
 }
