@@ -11,11 +11,10 @@ import com.google.firebase.auth.AuthCredential
 
 
 class LoginViewModel : ViewModel() {
-    val repository = FirebaseAuthRepository()
-
-    var authenticatedUserLiveData: LiveData<User>? = null
+    fun authenticatedUserLiveData(): LiveData<User> =
+        FirebaseAuthRepository.authenticatedUserLiveData
 
     fun signInWithGoogle(googleSignInAccount: GoogleSignInAccount?) {
-        authenticatedUserLiveData = repository.signIn(googleSignInAccount)
+        FirebaseAuthRepository.signIn(googleSignInAccount)
     }
 }

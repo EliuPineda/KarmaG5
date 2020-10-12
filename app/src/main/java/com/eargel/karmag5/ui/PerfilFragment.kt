@@ -2,6 +2,7 @@ package com.eargel.karmag5.ui
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,18 +32,24 @@ class PerfilFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(PerfilViewModel::class.java)
-        // TODO: Use the ViewModel
 
-
-        imageButtonLogOut.setOnClickListener{
-            findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
+        viewModel.authenticatedUserLiveData().observe(viewLifecycleOwner) { authenticatedUser ->
+            if (authenticatedUser == null)
+                findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
+            else {
+                textKarma.text = authenticatedUser.karma.toString()
+            }
         }
 
-        buttonGoHacer.setOnClickListener{
+        imageButtonLogOut.setOnClickListener {
+            viewModel.signOut()
+        }
+
+        buttonGoHacer.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_hacerFragment)
         }
 
-        buttonGoSolicitar.setOnClickListener{
+        buttonGoSolicitar.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_solicitarFragment)
         }
 

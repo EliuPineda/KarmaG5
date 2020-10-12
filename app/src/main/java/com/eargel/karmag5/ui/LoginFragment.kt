@@ -40,6 +40,11 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.authenticatedUserLiveData().observe(viewLifecycleOwner) { authenticatedUser ->
+            if (authenticatedUser != null)
+                findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
+        }
+
         val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("347292527764-6vljnsr6oo655pd031ilh00mq1iibb56.apps.googleusercontent.com")
             .requestEmail()
@@ -58,10 +63,6 @@ class LoginFragment : Fragment() {
                 val task: Task<GoogleSignInAccount> =
                     GoogleSignIn.getSignedInAccountFromIntent(data)
                 viewModel.signInWithGoogle(task.result)
-
-                viewModel.authenticatedUserLiveData?.observe(viewLifecycleOwner) { authenticatedUser ->
-                    findNavController().navigate(R.id.action_loginFragment_to_perfilFragment)
-                }
             } catch (e: ApiException) {
                 Log.e("LOGIN", "API Exception: $e")
                 Toast.makeText(activity, "API Exception: $e", Toast.LENGTH_LONG).show()
