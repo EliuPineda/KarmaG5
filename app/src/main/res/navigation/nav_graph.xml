@@ -36,11 +36,7 @@
         android:id="@+id/solicitarFragment"
         android:name="com.eargel.karmag5.ui.SolicitarFragment"
         android:label="solicitar_fragment"
-        tools:layout="@layout/solicitar_fragment" >
-        <action
-            android:id="@+id/action_solicitarFragment_to_perfilFragment"
-            app:destination="@id/perfilFragment" />
-    </fragment>
+        tools:layout="@layout/solicitar_fragment" />
     <fragment
         android:id="@+id/hacerFragment"
         android:name="com.eargel.karmag5.ui.HacerFragment"

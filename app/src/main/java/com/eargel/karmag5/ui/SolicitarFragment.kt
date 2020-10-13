@@ -29,14 +29,26 @@ class SolicitarFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(SolicitarViewModel::class.java)
-        // TODO: Use the ViewModel
 
-        imageButtonBackPerfilFronSolicitar.setOnClickListener{
-            findNavController().navigate(R.id.action_solicitarFragment_to_perfilFragment)
+        val categorias = mapOf(
+            R.id.radioDomicilio to "Buscar Domicilio en Puerta 7",
+            R.id.radioEspecial to "Favor Especial",
+            R.id.radioFotocopias to "Sacar Fotocopias",
+            R.id.radioKM5 to "Comprar en KM5"
+        )
+
+        imageButtonBackPerfilFromSolicitar.setOnClickListener {
+            findNavController().navigateUp()
         }
 
-        buttonDeseoSolicitar.setOnClickListener{
-            findNavController().navigate(R.id.action_solicitarFragment_to_perfilFragment)
+        buttonDeseoSolicitar.setOnClickListener {
+            val lugar = textLugar.text.toString()
+            val detalle = textDetalle.text.toString()
+            val categoria = categorias[radioGroup2.checkedRadioButtonId]
+            if (lugar != "" && detalle != "" && categoria != null) {
+                viewModel.solicitarFavor(lugar, detalle, categoria)
+                findNavController().navigateUp()
+            }
         }
     }
 
