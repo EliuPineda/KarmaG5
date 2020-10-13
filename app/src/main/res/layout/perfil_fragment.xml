@@ -156,22 +156,13 @@
         app:layout_constraintTop_toTopOf="@+id/guideline24" />
 
     <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tipo:  "
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline25" />
-
-    <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre:  "
+        android:text="Categoria:  "
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textView21"
@@ -231,22 +222,13 @@
         app:layout_constraintGuide_percent="0.9" />
 
     <TextView
-        android:id="@+id/textViewTipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="NA"
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="@+id/guideline23"
-        app:layout_constraintTop_toTopOf="@+id/guideline25" />
-
-    <TextView
-        android:id="@+id/textViewNombre"
+        android:id="@+id/textViewCategoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NA"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/textView20"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTipo" />
+        app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
     <TextView
         android:id="@+id/textViewLugar"
@@ -255,7 +237,7 @@
         android:text="NA"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/textView21"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNombre" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCategoria" />
 
     <ImageButton
         android:id="@+id/imageButtonLogOut"
@@ -268,7 +250,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewMoreDetails"
+        android:id="@+id/textViewDetalle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="More Details..."
@@ -289,7 +271,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/textViewEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="NA"

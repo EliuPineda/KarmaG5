@@ -38,6 +38,25 @@ class PerfilFragment : Fragment() {
                 findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
             else {
                 textKarma.text = authenticatedUser.karma.toString()
+                viewModel.buscarFavorEnProceso(authenticatedUser)
+            }
+        }
+
+        viewModel.favorEnProcesoLiveData().observe(viewLifecycleOwner) { favorEnProceso ->
+            if (favorEnProceso == null) {
+                textViewCategoria.text = ""
+                textViewEstado.text = ""
+                textViewLugar.text = ""
+                textViewDetalle.text = ""
+                buttonGoHacer.isEnabled = true
+                buttonGoSolicitar.isEnabled = true
+            } else {
+                textViewCategoria.text = favorEnProceso.categoria
+                textViewEstado.text = favorEnProceso.estado
+                textViewLugar.text = favorEnProceso.lugar
+                textViewDetalle.text = favorEnProceso.detalle
+                buttonGoHacer.isEnabled = false
+                buttonGoSolicitar.isEnabled = false
             }
         }
 
