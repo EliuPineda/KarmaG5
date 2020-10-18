@@ -1,5 +1,7 @@
 package com.eargel.karmag5.model
 
+import java.time.LocalDateTime
+
 class Favor(
     var id: String = "",
     var categoria: String = "",
@@ -8,5 +10,6 @@ class Favor(
     var lugar: String = "",
     var user: User? = null,
     var userAsignado: User? = null,
-    var mensajes: List<Mensaje> = listOf()
+    var mensajes: List<Mensaje> = listOf(),
+    var horaCompletado: LocalDateTime? = null
 ) {}

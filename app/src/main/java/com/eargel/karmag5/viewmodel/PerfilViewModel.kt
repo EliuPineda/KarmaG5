@@ -1,6 +1,7 @@
 package com.eargel.karmag5.viewmodel
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.eargel.karmag5.model.Favor
 import com.eargel.karmag5.model.User
@@ -11,10 +12,12 @@ class PerfilViewModel : ViewModel() {
     fun authenticatedUserLiveData(): LiveData<User> =
         FirebaseAuthRepository.authenticatedUserLiveData
 
+    fun favoresHechosLiveData(): LiveData<List<Favor>> = FavoresRepository.favoresHechosLiveData
+
     fun favorEnProcesoLiveData(): LiveData<Favor> = FavoresRepository.favorEnProcesoLiveData
 
     fun buscarFavorEnProceso(user: User) {
-        FavoresRepository.buscarFavorEnProceso(user)
+        FavoresRepository.buscarFavores(user)
     }
 
     fun signOut() {

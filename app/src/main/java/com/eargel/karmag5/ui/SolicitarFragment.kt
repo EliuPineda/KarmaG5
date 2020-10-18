@@ -1,11 +1,12 @@
 package com.eargel.karmag5.ui
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.eargel.karmag5.R
 import com.eargel.karmag5.viewmodel.SolicitarViewModel
@@ -17,8 +18,6 @@ class SolicitarFragment : Fragment() {
         fun newInstance() = SolicitarFragment()
     }
 
-    private lateinit var viewModel: SolicitarViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,7 +27,20 @@ class SolicitarFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SolicitarViewModel::class.java)
+        val viewModel: SolicitarViewModel by viewModels()
+
+        viewModel.authenticatedUserLiveData().observe(viewLifecycleOwner) { authenticatedUser ->
+            if (authenticatedUser == null)
+                findNavController().navigateUp()
+            else if (authenticatedUser.karma < 2) {
+                Toast.makeText(
+                    activity,
+                    "No tienes suficiente Karma para pedir favores.",
+                    Toast.LENGTH_LONG
+                ).show()
+                findNavController().navigateUp()
+            }
+        }
 
         val categorias = mapOf(
             R.id.radioDomicilio to "Buscar Domicilio en Puerta 7",

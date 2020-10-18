@@ -14,16 +14,21 @@ object FavoresRepository {
 
     val favorEnProcesoLiveData = MutableLiveData<Favor>()
     val favoresDisponiblesLiveData = MutableLiveData<List<Favor>>()
+    val favoresHechosLiveData = MutableLiveData<List<Favor>>()
 
-    fun buscarFavorEnProceso(user: User) {
+    fun buscarFavores(user: User) {
         database.child("favores").addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
                 val favor = dataSnapshot.getValue(Favor::class.java)
                 if (favor != null) {
-                    if (favor.estado == "Inicial" || favor.estado == "Asignado") {
-                        if ((favor.user!!.uid == user.uid) || (favor.userAsignado != null && favor.userAsignado!!.uid == user.uid)) {
+                    if ((favor.user!!.uid == user.uid) || (favor.userAsignado != null && favor.userAsignado!!.uid == user.uid)) {
+                        if (favor.estado == "Inicial" || favor.estado == "Asignado") {
                             favorEnProcesoLiveData.value = favor
+                        } else if (favor.estado == "Completo") {
+                            addFavorToFavoresHechos(favor)
                         }
+                    } else if (favor.user!!.uid != user.uid && favor.estado == "Inicial") {
+                        addFavorToFavoresDisponibles(favor)
                     }
                 }
             }
@@ -31,11 +36,30 @@ object FavoresRepository {
             override fun onChildChanged(dataSnapshot: DataSnapshot, previousChildName: String?) {
                 val favorEnProceso = favorEnProcesoLiveData.value
                 val favor = dataSnapshot.getValue(Favor::class.java)
-                if (favorEnProceso != null && favor != null && favor.id == favorEnProceso.id) {
-                    if (favor.estado == "Completo")
-                        favorEnProcesoLiveData.value = null
-                    else
-                        favorEnProcesoLiveData.value = favor
+                if (favor != null) {
+                    if (favorEnProceso != null && favor.id == favorEnProceso.id) {
+                        if (favor.estado == "Completo") {
+                            favorEnProcesoLiveData.value = null
+                            addFavorToFavoresHechos(favor)
+                        } else {
+                            favorEnProcesoLiveData.value = favor
+                        }
+                    }
+
+                    val favoresDisponibles: MutableList<Favor>? =
+                        favoresDisponiblesLiveData.value as MutableList<Favor>?
+                    if (favoresDisponibles != null) {
+                        val indiceFavorEnLista =
+                            favoresDisponibles.indexOfFirst { f -> f.id == favor.id }
+                        if (indiceFavorEnLista < -1) {
+                            if (favor.estado == "Inicial") {
+                                favoresDisponibles.set(indiceFavorEnLista, favor)
+                            } else {
+                                favoresDisponibles.removeAt(indiceFavorEnLista)
+                            }
+                        }
+                    }
+                    favoresDisponiblesLiveData.value = favoresDisponibles
                 }
             }
 
@@ -48,6 +72,25 @@ object FavoresRepository {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+    }
+
+    fun addFavorToFavoresHechos(favor: Favor) {
+        var favoresHechos: MutableList<Favor>? = favoresHechosLiveData.value as MutableList<Favor>?
+        if (favoresHechos == null)
+            favoresHechos = mutableListOf(favor)
+        else
+            favoresHechos.add(favor)
+        favoresHechosLiveData.value = favoresHechos.sortedBy { f -> f.horaCompletado }
+    }
+
+    fun addFavorToFavoresDisponibles(favor: Favor) {
+        var favoresDisponibles: MutableList<Favor>? =
+            favoresDisponiblesLiveData.value as MutableList<Favor>?
+        if (favoresDisponibles == null)
+            favoresDisponibles = mutableListOf(favor)
+        else
+            favoresDisponibles.add(favor)
+        favoresDisponiblesLiveData.value = favoresDisponibles
     }
 
     fun solicitarFavor(user: User, lugar: String, detalle: String, categoria: String) {
