@@ -80,22 +80,29 @@ object FavoresRepository {
             favoresHechos = mutableListOf(favor)
         else
             favoresHechos.add(favor)
-        favoresHechosLiveData.value = favoresHechos.sortedBy { f -> f.horaCompletado }
+        favoresHechosLiveData.value =
+            favoresHechos.sortedBy { f -> f.horaCompletado }.toMutableList()
     }
 
     fun addFavorToFavoresDisponibles(favor: Favor) {
-        var favoresDisponibles: MutableList<Favor>? =
-            favoresDisponiblesLiveData.value as MutableList<Favor>?
+        var favoresDisponibles = favoresDisponiblesLiveData.value as MutableList<Favor>?
         if (favoresDisponibles == null)
             favoresDisponibles = mutableListOf(favor)
         else
             favoresDisponibles.add(favor)
-        favoresDisponiblesLiveData.value = favoresDisponibles
+        favoresDisponiblesLiveData.value =
+            favoresDisponibles.sortedByDescending { f -> f.user?.karma }.toMutableList()
     }
 
     fun solicitarFavor(user: User, lugar: String, detalle: String, categoria: String) {
         val id = database.child("favores").push().key!!
         val favor = Favor(id, categoria, detalle, "Inicial", lugar, user)
         database.child("favores").child(id).setValue(favor)
+    }
+
+    fun asignarFavor(favor: Favor, user: User) {
+        favor.userAsignado = user
+        favor.estado = "Asignado"
+        database.child("favores").child(favor.id).setValue(favor)
     }
 }

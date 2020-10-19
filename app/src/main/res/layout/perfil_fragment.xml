@@ -148,6 +148,7 @@
         android:layout_height="wrap_content"
         android:text="-------- En Proceso --------"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
         app:layout_constraintTop_toTopOf="@+id/guideline24" />
@@ -158,6 +159,7 @@
         android:layout_height="wrap_content"
         android:text="Categoria:  "
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
         app:layout_constraintTop_toTopOf="@+id/guideline25" />
 
@@ -167,6 +169,7 @@
         android:layout_height="wrap_content"
         android:text="Lugar:  "
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -222,7 +225,6 @@
         android:id="@+id/textViewCategoria"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NA"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/textView20"
         app:layout_constraintTop_toTopOf="@+id/guideline25" />
@@ -231,7 +233,6 @@
         android:id="@+id/textViewLugar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NA"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/textViewCategoria" />
@@ -264,6 +265,7 @@
         android:layout_height="wrap_content"
         android:text="Estado:  "
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -271,7 +273,6 @@
         android:id="@+id/textViewEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NA"
         android:textColor="#FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textViewLugar" />

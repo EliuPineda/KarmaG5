@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.eargel.karmag5.viewmodel.PerfilViewModel
 import com.eargel.karmag5.R
 import com.eargel.karmag5.model.Favor
+import com.eargel.karmag5.model.User
 import kotlinx.android.synthetic.main.perfil_fragment.*
 
 class PerfilFragment : Fragment() {
@@ -28,13 +30,13 @@ class PerfilFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val viewModel: PerfilViewModel by viewModels()
-        var authenticatedUID = ""
+        var user: User? = null
 
         viewModel.authenticatedUserLiveData().observe(viewLifecycleOwner) { authenticatedUser ->
             if (authenticatedUser == null)
                 findNavController().navigate(R.id.action_perfilFragment_to_loginFragment)
             else {
-                authenticatedUID = authenticatedUser.uid
+                user = authenticatedUser
                 textKarma.text = authenticatedUser.karma.toString()
                 viewModel.buscarFavorEnProceso(authenticatedUser)
             }
@@ -60,7 +62,7 @@ class PerfilFragment : Fragment() {
 
         viewModel.favoresHechosLiveData().observe(viewLifecycleOwner) { favoresHechos ->
             fun describe(favor: Favor): String {
-                if (favor.user!!.uid == authenticatedUID)
+                if (favor.user?.uid == user?.uid)
                     return "Pediste: ${favor.categoria} (-2)"
                 else
                     return "Hiciste: ${favor.categoria} (+1)"
@@ -87,7 +89,14 @@ class PerfilFragment : Fragment() {
         }
 
         buttonGoSolicitar.setOnClickListener {
-            findNavController().navigate(R.id.action_perfilFragment_to_solicitarFragment)
+            if (user!!.karma < 2)
+                Toast.makeText(
+                    activity,
+                    "No tienes suficiente Karma para pedir favores",
+                    Toast.LENGTH_LONG
+                ).show()
+            else
+                findNavController().navigate(R.id.action_perfilFragment_to_solicitarFragment)
         }
 
         imageButtonChat.setOnClickListener{
