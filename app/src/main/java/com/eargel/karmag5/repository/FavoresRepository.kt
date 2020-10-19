@@ -105,4 +105,18 @@ object FavoresRepository {
         favor.estado = "Asignado"
         database.child("favores").child(favor.id).setValue(favor)
     }
+
+    fun cancelarFavorParaUser(user: User) {
+        val favor = favorEnProcesoLiveData.value
+        if (favor != null) {
+            if (favor.userAsignado?.uid == user.uid) {
+                favor.userAsignado = null
+                favor.estado = "Inicial"
+                database.child("favores").child(favor.id).setValue(favor)
+            } else if (favor.user?.uid == user.uid) {
+                database.child("favores").child(favor.id).setValue(null)
+            }
+            favorEnProcesoLiveData.value = null
+        }
+    }
 }
