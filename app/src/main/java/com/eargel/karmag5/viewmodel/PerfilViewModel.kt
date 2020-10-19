@@ -20,6 +20,14 @@ class PerfilViewModel : ViewModel() {
         FavoresRepository.buscarFavores(user)
     }
 
+    fun cancelarFavorEnProceso(user: User) {
+        FavoresRepository.cancelarFavorParaUser(user)
+    }
+
+    fun confirmarFavorEnProceso(user: User) {
+        FavoresRepository.confirmarFavorDesdeUser(user)
+    }
+
     fun signOut() {
         FirebaseAuthRepository.signOut()
     }

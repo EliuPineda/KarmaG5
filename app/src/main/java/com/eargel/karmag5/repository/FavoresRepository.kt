@@ -3,11 +3,16 @@ package com.eargel.karmag5.repository
 import androidx.lifecycle.MutableLiveData
 import com.eargel.karmag5.model.Favor
 import com.eargel.karmag5.model.User
+import com.google.firebase.Timestamp
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.time.Clock
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.*
 
 object FavoresRepository {
     val database = Firebase.database.reference
@@ -42,7 +47,24 @@ object FavoresRepository {
                             favorEnProcesoLiveData.value = null
                             addFavorToFavoresHechos(favor)
                         } else {
-                            favorEnProcesoLiveData.value = favor
+                            if (favor.completado && favor.confirmado) {
+                                favor.estado = "Completo"
+                                favor.horaCompletado = Timestamp.now()
+
+                                favor.userAsignado!!.apply {
+                                    karma = karma + 1
+                                    database.child("users").child(uid).setValue(this)
+                                }
+                                favor.user!!.apply {
+                                    karma = karma - 2
+                                    database.child("users").child(uid).setValue(this)
+                                }
+
+                                database.child("favores").child(favor.id).setValue(favor)
+                                favorEnProcesoLiveData.value = null
+                            } else {
+                                favorEnProcesoLiveData.value = favor
+                            }
                         }
                     }
 
@@ -117,6 +139,18 @@ object FavoresRepository {
                 database.child("favores").child(favor.id).setValue(null)
             }
             favorEnProcesoLiveData.value = null
+        }
+    }
+
+    fun confirmarFavorDesdeUser(user: User) {
+        val favor = favorEnProcesoLiveData.value
+        if (favor != null) {
+            if (favor.userAsignado?.uid == user.uid) {
+                favor.completado = true
+            } else if (favor.user?.uid == user.uid) {
+                favor.confirmado = true
+            }
+            database.child("favores").child(favor.id).setValue(favor)
         }
     }
 }

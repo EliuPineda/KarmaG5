@@ -30,7 +30,7 @@ class PerfilFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val viewModel: PerfilViewModel by viewModels()
-        var user: User? = null
+        lateinit var user: User
 
         viewModel.authenticatedUserLiveData().observe(viewLifecycleOwner) { authenticatedUser ->
             if (authenticatedUser == null)
@@ -50,6 +50,9 @@ class PerfilFragment : Fragment() {
                 textViewDetalle.text = ""
                 buttonGoHacer.isEnabled = true
                 buttonGoSolicitar.isEnabled = true
+                imageButtonChat.isEnabled = false
+                buttonCompletado.isEnabled = false
+                buttonCancelar.isEnabled = false
             } else {
                 textViewCategoria.text = favorEnProceso.categoria
                 textViewEstado.text = favorEnProceso.estado
@@ -57,12 +60,16 @@ class PerfilFragment : Fragment() {
                 textViewDetalle.text = favorEnProceso.detalle
                 buttonGoHacer.isEnabled = false
                 buttonGoSolicitar.isEnabled = false
+                imageButtonChat.isEnabled = (favorEnProceso.userAsignado != null)
+                buttonCompletado.isEnabled = (favorEnProceso.userAsignado != null)
+                buttonCancelar.isEnabled =
+                    (favorEnProceso.userAsignado == null || favorEnProceso.userAsignado!!.uid == user.uid)
             }
         }
 
         viewModel.favoresHechosLiveData().observe(viewLifecycleOwner) { favoresHechos ->
             fun describe(favor: Favor): String {
-                if (favor.user?.uid == user?.uid)
+                if (favor.user?.uid == user.uid)
                     return "Pediste: ${favor.categoria} (-2)"
                 else
                     return "Hiciste: ${favor.categoria} (+1)"
@@ -89,7 +96,7 @@ class PerfilFragment : Fragment() {
         }
 
         buttonGoSolicitar.setOnClickListener {
-            if (user!!.karma < 2)
+            if (user.karma < 2)
                 Toast.makeText(
                     activity,
                     "No tienes suficiente Karma para pedir favores",
@@ -99,10 +106,17 @@ class PerfilFragment : Fragment() {
                 findNavController().navigate(R.id.action_perfilFragment_to_solicitarFragment)
         }
 
-        imageButtonChat.setOnClickListener{
+        imageButtonChat.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_chatFragment)
         }
 
+        buttonCancelar.setOnClickListener {
+            viewModel.cancelarFavorEnProceso(user)
+        }
+
+        buttonCompletado.setOnClickListener {
+            viewModel.confirmarFavorEnProceso(user)
+        }
     }
 
 }
