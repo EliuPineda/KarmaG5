@@ -1,6 +1,7 @@
 package com.eargel.karmag5.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -75,11 +76,11 @@ class PerfilFragment : Fragment() {
                     return "Hiciste: ${favor.categoria} (+1)"
             }
 
-            if (favoresHechos != null) {
+            if (favoresHechos.size >= 1) {
                 textFavor0.text = describe(favoresHechos.get(0))
-                if (favoresHechos.size <= 2) {
+                if (favoresHechos.size >= 2) {
                     textFavor1.text = describe(favoresHechos.get(1))
-                    if (favoresHechos.size <= 3) {
+                    if (favoresHechos.size >= 3) {
                         textFavor2.text = describe(favoresHechos.get(2))
                     }
                 }

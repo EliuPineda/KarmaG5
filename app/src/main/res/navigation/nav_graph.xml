@@ -46,9 +46,5 @@
         android:id="@+id/chatFragment"
         android:name="com.eargel.karmag5.ui.ChatFragment"
         android:label="chat_fragment"
-        tools:layout="@layout/chat_fragment" >
-        <action
-            android:id="@+id/action_chatFragment_to_perfilFragment"
-            app:destination="@id/perfilFragment" />
-    </fragment>
+        tools:layout="@layout/chat_fragment" />
 </navigation>

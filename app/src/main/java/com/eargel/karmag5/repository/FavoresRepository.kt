@@ -2,17 +2,13 @@ package com.eargel.karmag5.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.eargel.karmag5.model.Favor
+import com.eargel.karmag5.model.Mensaje
 import com.eargel.karmag5.model.User
-import com.google.firebase.Timestamp
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.time.Clock
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.*
 
 object FavoresRepository {
     val database = Firebase.database.reference
@@ -22,6 +18,8 @@ object FavoresRepository {
     val favoresHechosLiveData = MutableLiveData<List<Favor>>()
 
     fun buscarFavores(user: User) {
+        favoresDisponiblesLiveData.value = mutableListOf()
+        favoresHechosLiveData.value = mutableListOf()
         database.child("favores").addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, previousChildName: String?) {
                 val favor = dataSnapshot.getValue(Favor::class.java)
@@ -30,10 +28,18 @@ object FavoresRepository {
                         if (favor.estado == "Inicial" || favor.estado == "Asignado") {
                             favorEnProcesoLiveData.value = favor
                         } else if (favor.estado == "Completo") {
-                            addFavorToFavoresHechos(favor)
+                            val favoresHechos = favoresHechosLiveData.value as MutableList
+                            favoresHechos.add(favor)
+                            favoresHechosLiveData.value =
+                                favoresHechos.sortedByDescending { f -> f.horaCompletado }
+                                    .toMutableList()
                         }
                     } else if (favor.user!!.uid != user.uid && favor.estado == "Inicial") {
-                        addFavorToFavoresDisponibles(favor)
+                        val favoresDisponibles = favoresDisponiblesLiveData.value as MutableList
+                        favoresDisponibles.add(favor)
+                        favoresDisponiblesLiveData.value =
+                            favoresDisponibles.sortedByDescending { f -> f.user?.karma }
+                                .toMutableList()
                     }
                 }
             }
@@ -45,11 +51,17 @@ object FavoresRepository {
                     if (favorEnProceso != null && favor.id == favorEnProceso.id) {
                         if (favor.estado == "Completo") {
                             favorEnProcesoLiveData.value = null
-                            addFavorToFavoresHechos(favor)
+                            val favoresHechos = favoresHechosLiveData.value as MutableList
+                            favoresHechos.add(favor)
+                            favoresHechosLiveData.value =
+                                favoresHechos.sortedByDescending { f -> f.horaCompletado }
+                                    .toMutableList()
+                        } else if (favor.estado == "Inicial") {
+                            favorEnProcesoLiveData.value = null
                         } else {
                             if (favor.completado && favor.confirmado) {
                                 favor.estado = "Completo"
-                                favor.horaCompletado = Timestamp.now()
+                                favor.horaCompletado = System.currentTimeMillis()
 
                                 favor.userAsignado!!.apply {
                                     karma = karma + 1
@@ -86,6 +98,19 @@ object FavoresRepository {
             }
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+                val favorId = dataSnapshot.key
+                if (favorEnProcesoLiveData.value?.id == favorId)
+                    favorEnProcesoLiveData.value = null
+
+                val favoresDisponibles =
+                    favoresDisponiblesLiveData.value!!.filter { favor -> favor.id != favorId }
+                favoresDisponiblesLiveData.value =
+                    favoresDisponibles.sortedByDescending { f -> f.user?.karma }.toMutableList()
+
+                val favoresHechos =
+                    favoresHechosLiveData.value!!.filter { favor -> favor.id != favorId }
+                favoresHechosLiveData.value =
+                    favoresHechos.sortedByDescending { f -> f.horaCompletado }.toMutableList()
             }
 
             override fun onChildMoved(dataSnapshot: DataSnapshot, previousChildName: String?) {
@@ -96,30 +121,10 @@ object FavoresRepository {
         })
     }
 
-    fun addFavorToFavoresHechos(favor: Favor) {
-        var favoresHechos: MutableList<Favor>? = favoresHechosLiveData.value as MutableList<Favor>?
-        if (favoresHechos == null)
-            favoresHechos = mutableListOf(favor)
-        else
-            favoresHechos.add(favor)
-        favoresHechosLiveData.value =
-            favoresHechos.sortedBy { f -> f.horaCompletado }.toMutableList()
-    }
-
-    fun addFavorToFavoresDisponibles(favor: Favor) {
-        var favoresDisponibles = favoresDisponiblesLiveData.value as MutableList<Favor>?
-        if (favoresDisponibles == null)
-            favoresDisponibles = mutableListOf(favor)
-        else
-            favoresDisponibles.add(favor)
-        favoresDisponiblesLiveData.value =
-            favoresDisponibles.sortedByDescending { f -> f.user?.karma }.toMutableList()
-    }
-
     fun solicitarFavor(user: User, lugar: String, detalle: String, categoria: String) {
         val id = database.child("favores").push().key!!
-        val favor = Favor(id, categoria, detalle, "Inicial", lugar, user)
-        database.child("favores").child(id).setValue(favor)
+        database.child("favores").child(id)
+            .setValue(Favor(id, categoria, detalle, "Inicial", lugar, user))
     }
 
     fun asignarFavor(favor: Favor, user: User) {
@@ -138,19 +143,26 @@ object FavoresRepository {
             } else if (favor.user?.uid == user.uid) {
                 database.child("favores").child(favor.id).setValue(null)
             }
-            favorEnProcesoLiveData.value = null
         }
     }
 
     fun confirmarFavorDesdeUser(user: User) {
         val favor = favorEnProcesoLiveData.value
         if (favor != null) {
-            if (favor.userAsignado?.uid == user.uid) {
+            if (favor.userAsignado?.uid == user.uid)
                 favor.completado = true
-            } else if (favor.user?.uid == user.uid) {
+            else if (favor.user?.uid == user.uid)
                 favor.confirmado = true
-            }
             database.child("favores").child(favor.id).setValue(favor)
+        }
+    }
+
+    fun enviarMensajeAFavorEnProceso(texto: String, user: User) {
+        val favor = favorEnProcesoLiveData.value
+        if (favor != null) {
+            val refMensajes = database.child("favores").child(favor.id).child("mensajes")
+            val id = refMensajes.push().key!!
+            refMensajes.child(id).setValue(Mensaje(id, user, texto, System.currentTimeMillis()))
         }
     }
 }

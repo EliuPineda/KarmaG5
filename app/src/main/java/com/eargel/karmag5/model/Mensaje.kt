@@ -1,10 +1,8 @@
 package com.eargel.karmag5.model
 
-import java.time.LocalDateTime
-
 class Mensaje(
-    var id: Int,
-    var user: User,
-    var texto: String,
-    var hora: LocalDateTime
+    var id: String = "",
+    var user: User? = null,
+    var texto: String = "",
+    var hora: Long = 0
 ) {}

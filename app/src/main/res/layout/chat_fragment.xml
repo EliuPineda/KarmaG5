@@ -9,7 +9,7 @@
     tools:context=".ui.ChatFragment">
 
     <ImageButton
-        android:id="@+id/imageButtonBackPerfilFronChat"
+        android:id="@+id/imageButtonBackPerfilFromChat"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
@@ -19,34 +19,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/textNuevoMensaje"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/guideline26"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline28"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/imageButtonEnviar"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:src="@android:drawable/ic_menu_send"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextMultiLine"
+        app:layout_constraintBottom_toBottomOf="@+id/textNuevoMensaje"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextMultiLine"
-        app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintStart_toEndOf="@+id/textNuevoMensaje"
+        app:layout_constraintTop_toTopOf="@+id/textNuevoMensaje" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
@@ -56,12 +50,12 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/viewMensajes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/textNuevoMensaje"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline29" />
@@ -74,13 +68,13 @@
         app:layout_constraintGuide_percent="0.06" />
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/textFavor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contact Name"
+        android:text="Favor"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/viewMensajes"
+        app:layout_constraintStart_toStartOf="@+id/viewMensajes"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
